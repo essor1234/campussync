@@ -1,3 +1,5 @@
+import 'package:campussync/screens/event/events_screen.dart';
+import 'package:campussync/screens/schedule/schedule_screen.dart';
 import 'package:flutter/material.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
@@ -7,6 +9,7 @@ class Routes {
   static const String login = '/login';
   static const String register = '/register';
   static const String events = '/events';
+  static const String schedule = '/schedule';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -14,6 +17,10 @@ class Routes {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case register:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
+      case events:
+        return MaterialPageRoute(builder: (_) => const EventScreen());
+      case schedule:
+        return MaterialPageRoute(builder: (_) => const ScheduleScreen());
       default:
         return MaterialPageRoute(
           builder: (_) =>
