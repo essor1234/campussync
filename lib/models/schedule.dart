@@ -1,13 +1,13 @@
 class Schedule {
   final String id;
-  final String userid;
+  final String userId;
   final String title;
   final String dateTime;
   final String? description;
 
   Schedule({
     required this.id,
-    required this.userid,
+    required this.userId,
     required this.title,
     required this.dateTime,
     this.description,
@@ -15,7 +15,7 @@ class Schedule {
 
   Map<String, dynamic> toMap() => {
     'id': id,
-    'userid': userid,
+    'userId': userId,
     'title': title,
     'dateTime': dateTime,
     'description': description,
@@ -23,7 +23,7 @@ class Schedule {
 
   factory Schedule.fromMap(Map<String, dynamic> map) => Schedule(
     id: map['id'],
-    userid: map['userid'],
+    userId: map['userId'],
     title: map['title'],
     dateTime: map['dateTime'],
     description: map['description'],

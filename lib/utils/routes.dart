@@ -6,6 +6,7 @@ import '../screens/auth/register_screen.dart';
 class Routes {
   static const String login = '/login';
   static const String register = '/register';
+  static const String events = '/events';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {

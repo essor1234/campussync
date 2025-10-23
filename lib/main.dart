@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/user_provider.dart';
 import 'utils/routes.dart';
+import 'providers/event_provider.dart'; // ✅ Add this
+import 'screens/event/events_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => EventProvider()),
         // Add other providers (ScheduleProvider, EventProvider...) later
       ],
       child: MaterialApp(
@@ -28,6 +31,7 @@ class MyApp extends StatelessWidget {
             border: OutlineInputBorder(),
           ),
         ),
+        home: const EventScreen(),
         initialRoute: Routes.login,
         onGenerateRoute: Routes.generateRoute,
       ),
