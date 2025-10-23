@@ -1,11 +1,11 @@
-class Schedule {
+class Event {
   final String id;
   final String attendees;
   final String title;
   final String dateTime;
   final String? description;
 
-  Schedule({
+  Event({
     required this.id,
     required this.attendees,
     required this.title,
@@ -21,7 +21,7 @@ class Schedule {
     'description': description,
   };
 
-  factory Schedule.fromMap(Map<String, dynamic> map) => Schedule(
+  factory Event.fromMap(Map<String, dynamic> map) => Event(
     id: map['id'],
     attendees: map['attendees'],
     title: map['title'],
