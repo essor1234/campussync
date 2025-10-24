@@ -1,22 +1,23 @@
 // main.dart
 import 'package:campussync/providers/chat_provider.dart';
+import 'package:campussync/providers/user_provider.dart';
+import 'package:campussync/providers/schedule_provider.dart';
+import 'package:campussync/providers/event_provider.dart';
+import 'package:campussync/screens/auth/login_screen.dart';
+import 'package:campussync/screens/auth/register_screen.dart';
 import 'package:campussync/screens/event/events_screen.dart';
 import 'package:campussync/screens/home/home_screen.dart';
 import 'package:campussync/screens/schedule/schedule_screen.dart';
-import 'screens/aiAgent/smart_screen.dart';
+import 'package:campussync/screens/aiAgent/smart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
-
-import 'providers/user_provider.dart';
-import 'providers/schedule_provider.dart';
-import 'providers/event_provider.dart';
-import 'utils/routes.dart';
+import 'package:campussync/utils/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Load .env (must be in project raíz + listed in pubspec.yaml assets)
+  // Load .env (must be in project root + listed in pubspec.yaml assets)
   await dotenv.load(fileName: ".env");
 
   runApp(const MyApp());
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'School Management',
+        title: 'CampusSync', // Updated to match your app name
         theme: ThemeData(
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: Colors.white,
@@ -47,18 +48,21 @@ class MyApp extends StatelessWidget {
             border: OutlineInputBorder(),
           ),
         ),
+        // Remove the 'routes' map to avoid conflicts—rely on onGenerateRoute for all
+        // **TESTING** – uncomment if you want to bypass auth temporarily
+        // home: const StudySmartScreen(),  // Or HomeScreen() for full flow
 
-        // **TESTING** – go straight to the AI screen
-        home: const HomeScreen(),
-        routes: {
-          '/study': (context) => const StudySmartScreen(),
-          '/events': (context) => const EventScreen(),
-          '/schedule': (context) => const ScheduleScreen(),
-        },
-
-        // Keep your normal routing for later
-        // initialRoute: Routes.login,
-        // onGenerateRoute: Routes.generateRoute,
+        // Standard auth flow: Start at login, auto-redirect if already logged in
+        home: Consumer<UserProvider>(
+          builder: (context, userProvider, child) {
+            if (userProvider.user != null) {
+              return const HomeScreen();
+            }
+            return const LoginScreen();
+          },
+        ),
+        onGenerateRoute: Routes
+            .generateRoute, // Handles all named routes (login, home, etc.)
       ),
     );
   }

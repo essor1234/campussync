@@ -1,4 +1,5 @@
 // lib/screens/home/home_screen.dart
+import 'package:campussync/providers/user_provider.dart';
 import 'package:campussync/screens/home/home_section_header.dart';
 import 'package:campussync/screens/home/home_suggestion_card.dart';
 import 'package:campussync/screens/home/home_bottom_chat_bar.dart';
@@ -7,6 +8,7 @@ import 'package:campussync/screens/home/home_top_card.dart';
 import 'package:campussync/screens/home/home_upcoming_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 // --- Color & Gradient Constants ---
 const kHomeTopCardGradient = LinearGradient(
@@ -56,7 +58,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(context),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -73,28 +75,33 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final userName = userProvider.user?.name ?? 'User';
+    final userInitial =
+        userProvider.user?.name?.substring(0, 1).toUpperCase() ?? 'U';
+
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
       leadingWidth: 70,
-      leading: const Padding(
-        padding: EdgeInsets.only(left: 16.0),
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 16.0),
         child: CircleAvatar(
           radius: 22,
-          backgroundColor: Color(0xFFFDEFEA),
+          backgroundColor: const Color(0xFFFDEFEA),
           child: Text(
-            'M',
-            style: TextStyle(
+            userInitial,
+            style: const TextStyle(
               color: Color(0xFFF57C00),
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
       ),
-      title: const Text(
-        'Hello Mia',
-        style: TextStyle(
+      title: Text(
+        'Hello $userName',
+        style: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
           fontSize: 20,
