@@ -137,10 +137,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       elevation: 0,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: Colors.black),
-        onPressed: () {
-          print('Back button pressed on Schedule screen');
-          // Example action: Navigator.pop(context);
-        },
+        onPressed: () => Navigator.pushReplacementNamed(context, '/'),
       ),
       title: const Text(
         'Schedule',

@@ -54,10 +54,7 @@ class _EventScreenState extends State<EventScreen> {
       elevation: 0,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: Colors.black),
-        onPressed: () {
-          // Matching action: Print to console on tap
-          print('Back button pressed');
-        },
+        onPressed: () => Navigator.pushReplacementNamed(context, '/'),
       ),
       title: const Text(
         'Event',
